@@ -6,7 +6,7 @@
 # @author Devin Henderson <code@devhen.net>
 # @version 2015.04.07.1
 # 
-BTSYNC_USER="apache";
+BTSYNC_USER="root";
 BTSYNC_CONFIG="/etc/btsync.conf";
 BTSYNC_PATH="/opt/btsync"
 # Setting BTSYNC_PATH is optional.
