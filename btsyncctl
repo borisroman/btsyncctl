@@ -6,7 +6,7 @@
 # @author Devin Henderson <code@devhen.net>
 # @version 2015.04.07.1
 # 
-BTSYNC_USER="root";
+BTSYNC_USER="apache";
 BTSYNC_CONFIG="/etc/btsync.conf";
 BTSYNC_PATH="/opt/btsync"
 # Setting BTSYNC_PATH is optional.
@@ -28,8 +28,8 @@ if [ "$1" == 'stop' ];
     exit 1;
 elif [ "$1" == 'status' ];
   then
-    BTSYNC_VER=$(su -l $BTSYNC_USER -c "$BTSYNC_PATH --help" | awk 'NR==2{print $0}');
-    BTSYNC_ARCH=$(su -l $BTSYNC_USER -c "file -L $BTSYNC_PATH" | awk '{print $3}');
+    BTSYNC_VER=$(su -s /bin/sh $BTSYNC_USER -c "$BTSYNC_PATH --help" | awk 'NR==2{print $0}');
+    BTSYNC_ARCH=$(su -s /bin/sh $BTSYNC_USER -c "file -L $BTSYNC_PATH" | awk '{print $3}');
     if [ "$BTSYNC_PID" ];
       then
         BTSYNC_SINCE=$(ps -o etime -p "$BTSYNC_PID" | awk 'NR==2{print $1}');
@@ -55,4 +55,4 @@ elif [ "$1" == 'start' ];
   then
     PARAMS="--config $BTSYNC_CONFIG";
 fi
-su -l $BTSYNC_USER -c "$BTSYNC_PATH $PARAMS"
+su -s /bin/sh $BTSYNC_USER -c "$BTSYNC_PATH $PARAMS"
